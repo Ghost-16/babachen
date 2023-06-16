@@ -35,14 +35,14 @@ public class TestSPH : MonoBehaviour
     public vec3 pos;
     public vec3 prev_pos;
     public vec3 visual_pos;
-    public float rho = 1.0f;
-    public float rho_near = 1.0f;
-    public float press = 0.0f;
-    public float press_near = 0.0f;
-    public list neighbours = new list();
-    public vec3 vel = vec3.zero;
-    public vec3 force = new vec3(0f, -G, 0f);
-    public float velocity = 0.0f;
+    public float rho;
+    public float rho_near;
+    public float press;
+    public float press_near;
+    public list neighbours;
+    public vec3 vel;
+    public vec3 force;
+    public float velocity;
     public float temperature;
 
     // Spatial partitioning position in grid
@@ -66,12 +66,20 @@ public class TestSPH : MonoBehaviour
         prev_pos = pos;
         visual_pos = pos;
         temperature = 3000f;
+        rho = 1.0f;
+        rho_near = 1.0f;
+        press = 0.0f;
+        press_near = 0.0f;
+        neighbours = new list();
+        //vel = vec3.zero;
+        force = new vec3(0f, -G, 0f);
+        //velocity = 0.0f;
 }
 
     // Update is called once per frame
     public void UpdateState()
     {
-        float tt = Time.deltaTime * DT;
+        float tt = /*Time.deltaTime **/ DT;
 
         if (name != "Base_Particle")
         {
@@ -91,7 +99,7 @@ public class TestSPH : MonoBehaviour
         transform.position = visual_pos;
 
 
-        vel = (pos - prev_pos) / Time.deltaTime / DT;
+        //vel = (pos - prev_pos) / tt;
 
         velocity = vel.magnitude;
 

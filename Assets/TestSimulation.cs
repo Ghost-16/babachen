@@ -63,7 +63,7 @@ public class TestSimulation : MonoBehaviour
 
     void Start()
     {
-        Base_Particle = GameObject.Find("Base_Particle");
+        //Base_Particle = GameObject.Find("Base_Particle");
 
         grid_size_x = 60;
         grid_size_y = 60;
@@ -121,8 +121,6 @@ public class TestSimulation : MonoBehaviour
         // For each particle
         foreach (TestSPH p in particles)
         {
-            if (p.id != 0)
-            {
                 density = 0.0f;
                 density_near = 0.0f;
                 //p.rho = 0f;
@@ -163,7 +161,7 @@ public class TestSimulation : MonoBehaviour
                 p.rho += density;                               //ТУТ НАБИРАЕТСЯ ПЛОТНОСТЬ
                 p.rho_near += density_near;
                 p.CalculatePressure();                          //ТУТ СЧИТАЕТСЯ ДАВЛЕНИЕ
-            }
+            
         }
     }
 
@@ -180,8 +178,6 @@ public class TestSimulation : MonoBehaviour
 
         foreach (TestSPH p in particles)
         {
-            if (p.id != 0)
-            {
                 pressure_force = vec3.zero;
 
                 foreach (TestSPH n in p.neighbours)
@@ -202,7 +198,7 @@ public class TestSimulation : MonoBehaviour
                     pressure_force += pressure_vector;
                 }
                 p.force += pressure_force;
-            }
+            
         }
     }
 
@@ -231,7 +227,7 @@ public class TestSimulation : MonoBehaviour
                 temper += 1200 * P_MASS * temper_difference * (-1/normal_distance) / 1.3f;  //1.3 это изобарная теплоемкость воздуха при давлении ~220 атмосфер
                 n.temperature -= temper;
             }
-            if (p.neighbours.Count < 1 && p.id != 0)
+            if (p.neighbours.Count < 1)
             {
                 temper -= 50;
             }
@@ -260,7 +256,7 @@ public class TestSimulation : MonoBehaviour
                 if (velocity_difference > 0)
                 {
                     viscosity_force = (1 - relative_distance) * velocity_difference * SIGMA * normal_p_to_n;
-                    p.vel -= P_MASS * viscosity_force * 0.5f;
+                    p.force -= P_MASS * viscosity_force * 0.5f;
                     //n.vel += P_MASS * viscosity_force * 0.5f;
                 }
             }
@@ -277,13 +273,11 @@ public class TestSimulation : MonoBehaviour
         */
         foreach (TestSPH p in particles)
         {
-            if (p.id != 0)
-            {
                 vec3 buoyancy_force = vec3.zero;
 
                 buoyancy_force.y = 0.0004f * AIR_DENS * G * p.temperature / (p.rho * p.rho);
                 p.force += buoyancy_force;
-            }
+            
         }
     }
     public void destroy_old(list particles)
@@ -292,7 +286,7 @@ public class TestSimulation : MonoBehaviour
             int p_id = -1;
             foreach (TestSPH p in particles)
             {
-                if (p.id != 0 && p.pos.y < min_y)
+                if (p.pos.y < min_y)
                 {
                     min_y = p.pos.y;
                     p_id = p.id;
@@ -321,29 +315,29 @@ public class TestSimulation : MonoBehaviour
         }
 
         // Assign particles to spatial partitioning grid
-        for (int i = 0; i < grid_size_x; i++)
-        {
-            for (int j = 0; j < grid_size_y; j++)
-            {
-                for (int k = 0; k < grid_size_z; k++)
-                {
-                    grid[i, j, k].Clear();
-                }
-            }
-        }
-        foreach (TestSPH p in particles)
-        {
-            // Assign grid_x and grid_y using x_min y_min x_max y_max
-            p.grid_x = (int)((p.pos.x - x_min) / (x_max - x_min) * grid_size_x);
-            p.grid_y = (int)((p.pos.y - y_min) / (y_max - y_min) * grid_size_y);
-            p.grid_z = (int)((p.pos.z - z_min) / (z_max - z_min) * grid_size_z);
+        //for (int i = 0; i < grid_size_x; i++)
+        //{
+        //    for (int j = 0; j < grid_size_y; j++)
+        //    {
+        //        for (int k = 0; k < grid_size_z; k++)
+        //        {
+        //            grid[i, j, k].Clear();
+        //        }
+        //    }
+        //}
+        //foreach (TestSPH p in particles)
+        //{
+        //    // Assign grid_x and grid_y using x_min y_min x_max y_max
+        //    p.grid_x = (int)((p.pos.x - x_min) / (x_max - x_min) * grid_size_x);
+        //    p.grid_y = (int)((p.pos.y - y_min) / (y_max - y_min) * grid_size_y);
+        //    p.grid_z = (int)((p.pos.z - z_min) / (z_max - z_min) * grid_size_z);
 
-            // Add particle to grid if it is within bounds
-            if (p.grid_x >= 0 && p.grid_x < grid_size_x && p.grid_y >= 0 && p.grid_y < grid_size_y && p.grid_z >= 0 && p.grid_z < grid_size_z)
-            {
-                grid[p.grid_x, p.grid_y, p.grid_z].Add(p);
-            }
-        }
+        //    // Add particle to grid if it is within bounds
+        //    if (p.grid_x >= 0 && p.grid_x < grid_size_x && p.grid_y >= 0 && p.grid_y < grid_size_y && p.grid_z >= 0 && p.grid_z < grid_size_z)
+        //    {
+        //        grid[p.grid_x, p.grid_y, p.grid_z].Add(p);
+        //    }
+        //}
         time = Time.realtimeSinceStartup - time;
         //Debug.Log("Time to assign particles to grid: " + time);
 
@@ -387,11 +381,11 @@ public class TestSimulation : MonoBehaviour
 
         calculate_buoyancy(particles);
 
-        time = Time.realtimeSinceStartup - timer1.now_time;
-        if (time > 30)
-        {
-            destroy_old(particles);
-        }
+        //time = Time.realtimeSinceStartup - timer1.now_time;
+        //if (time > 30)
+        //{
+        //    destroy_old(particles);
+        //}
     }
 
     //void _computePressure(void)

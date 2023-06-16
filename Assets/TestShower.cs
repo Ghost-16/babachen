@@ -17,11 +17,11 @@ public class TestShower : MonoBehaviour
     //float speed_x = rand_speed();
     //float speed_y = rand_speed();
     //float speed_z = rand_speed();
-    public float vel_mult = 1;
+    public float vel_mult;
     public int[] init_speed = new int[6];
     public int dist_prob;
     public float spawn_rate;
-    public float maxCount = 100000;
+    public float maxCount;
     private float time;
 
     public bool started;
@@ -31,18 +31,17 @@ public class TestShower : MonoBehaviour
     void Start()
     {
         Simulation = GameObject.Find("Explosion");
-        Base_Particle = GameObject.Find("Base_Particle");
         spawn_rate = 0.2f;
         dist_prob = 30;
         vel_mult = 1;
         started = false;
         finished = false;
-    }
+}
 
     // Update is called once per frame
     void Update()
     {
-        if(started && Simulation.transform.childCount == 1) {
+        if(started && Simulation.transform.childCount == 0) {
             finished = true;
         }
     }
