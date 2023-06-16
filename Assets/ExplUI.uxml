@@ -1,0 +1,23 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/TestUSS.uss?fileID=7433441132597879392&amp;guid=0d261d643b6b9ab4d88a4d39d856c466&amp;type=3#TestUSS" />
+    <ui:VisualElement style="flex-direction: column; bottom: auto; position: relative; height: 100%; width: 100%; top: auto; align-items: center; justify-content: flex-start; background-color: rgba(56, 56, 56, 0); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-left-color: rgb(84, 84, 84); border-right-color: rgb(84, 84, 84); border-top-color: rgb(84, 84, 84); border-bottom-color: rgb(84, 84, 84); padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;">
+        <ui:VisualElement name="Menu" style="position: absolute; top: 0; width: 100%; height: 5%; background-color: rgb(152, 152, 152); -unity-text-outline-color: rgb(56, 56, 56); overflow: visible;">
+            <ui:Button text="x" display-tooltip-when-elided="true" name="QuitButton" focusable="true" style="width: 4%; height: 100%; position: absolute; right: 0; -unity-font-style: bold; font-size: 40px; background-color: rgb(202, 74, 74); margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 8px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Container" style="height: 95%; position: absolute; bottom: 0; width: 20%; justify-content: space-around; align-items: stretch; background-color: rgb(152, 152, 152); left: 0; top: auto; overflow: visible;">
+            <ui:VisualElement name="Slider1" style="flex-direction: column; justify-content: space-around;">
+                <ui:Label text="Параметр1" display-tooltip-when-elided="true" />
+                <ui:Slider picking-mode="Ignore" value="42" high-value="100" style="height: 21px;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Slider2">
+                <ui:Label text="Параметр2" display-tooltip-when-elided="true" />
+                <ui:Slider picking-mode="Ignore" value="42" high-value="100" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Slider3">
+                <ui:Label text="Параметр3" display-tooltip-when-elided="true" />
+                <ui:Slider picking-mode="Ignore" value="42" high-value="100" />
+            </ui:VisualElement>
+            <ui:Button text="Запуск" display-tooltip-when-elided="true" name="ExplButton" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
