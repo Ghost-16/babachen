@@ -24,4 +24,8 @@ public class Timer : MonoBehaviour
         prev_time = now_time;
         now_time = Time.realtimeSinceStartup;
     }
+    public float GetDeltaTime()
+    {
+        return Time.realtimeSinceStartup - now_time;
+    }
 }

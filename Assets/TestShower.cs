@@ -24,6 +24,9 @@ public class TestShower : MonoBehaviour
     public float maxCount;
     private float time;
 
+
+    public Timer timer1;
+
     public bool started;
     public bool finished;
 
@@ -41,18 +44,19 @@ public class TestShower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(started && Simulation.transform.childCount == 0) {
+        if(started && Simulation.transform.childCount == 0 && timer1.GetDeltaTime()>1) {
+            //Debug.Log("Shower thinks sim is done because: "+ started.ToString()+ " "+ Simulation.transform.childCount.ToString()+ " "+ timer1.GetDeltaTime().ToString());
             finished = true;
         }
     }
 
     public void Explode()
     {
+        //Debug.Log("Exploded");
         started = true; finished = false;
         // Limit the number of particles
         for (int i = Simulation.transform.childCount; i < maxCount; i++)
         {
-            //Debug.Log("Creating particle");
             // Spawn particles at a constant rate
             //time += Time.deltaTime;
             //if (time < 1.0f / spawn_rate)
@@ -61,6 +65,8 @@ public class TestShower : MonoBehaviour
             //}
             // Create a new particle at the current position of the object
             GameObject new_particle = Instantiate(Base_Particle, transform.position /*+ new Vector3((float)Random.NextDouble(), (float)Random.NextDouble(), (float)Random.NextDouble())*/, Quaternion.identity);
+
+            //Debug.Log("Creating particle at " + new_particle.transform.position);
 
             new_particle.GetComponent<TestSPH>().id = i;
             // update the particle's position
