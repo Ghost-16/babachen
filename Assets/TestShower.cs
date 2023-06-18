@@ -52,7 +52,7 @@ public class TestShower : MonoBehaviour
 
     public void Explode()
     {
-        //Debug.Log("Exploded");
+        //Debug.Log("Velocity "+vel_mult+", init speed Y "+ init_speed[3]);
         started = true; finished = false;
         // Limit the number of particles
         for (int i = Simulation.transform.childCount; i < maxCount; i++)
@@ -77,7 +77,7 @@ public class TestShower : MonoBehaviour
 
             if (my_rand(0, 100) < dist_prob)
             {
-                new_particle.GetComponent<TestSPH>().vel *= (my_rand(5, 10)* vel_mult);
+                new_particle.GetComponent<TestSPH>().vel *= (my_rand(5, 10)*vel_mult);
             }
 
             // Set as child of the Simulation object
