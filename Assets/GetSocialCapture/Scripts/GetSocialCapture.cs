@@ -114,7 +114,7 @@ namespace GetSocialSdk.Capture.Scripts
             _recorder.CurrentState = Recorder.RecordingState.RecordNow;
         }
 
-        public void GenerateCapture(Action<byte[]> result)
+        public string GenerateCapture(Action<byte[]> result)    //тип возвращаемого изменен с void на string
         {
             _recorder.CurrentState = Recorder.RecordingState.OnHold;
             if (StoreWorker.Instance.StoredFrames.Count() > 0)
@@ -131,11 +131,14 @@ namespace GetSocialSdk.Capture.Scripts
                         });
                     });
                 generator.Start();
+
+                return _resultFilePath; //возвращаем путь к гифке
             }
             else
             {
                 Debug.Log("Something went wrong, check your settings");
                 result(new byte[0]);
+                return ""; //возвращаем пустую строку
             }
         }
 

@@ -40,6 +40,7 @@ public class NewUIScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (explosion1.finished)
         {
             if (RenderMode.isOn)
@@ -55,7 +56,16 @@ public class NewUIScript : MonoBehaviour
                     // use content, like send it to your friends by using GetSocial Sdk
                 };
 
-                capture.GenerateCapture(result);
+                string filepath = capture.GenerateCapture(result);
+                if (filepath != "")
+                {
+                    Debug.Log(filepath);
+                    MyMessageBox.ShowMessage("Успешно! Сгенерированный файл расположен по адресу " + filepath);
+                }
+                else
+                {
+                    MyMessageBox.ShowMessage("Ошибка! Не удалось сгенерировать файл");
+                }
             }
             explosion1.started = false;
             explosion1.finished = false;
