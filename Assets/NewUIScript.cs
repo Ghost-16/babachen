@@ -117,11 +117,11 @@ public class NewUIScript : MonoBehaviour
     {
         if(value)
         {
-            explosion1.maxCount = 1000; //НЕ ЗАБЫТЬ ВЕРНУТЬ 6000
+            explosion1.maxCount = 10000; //режим рендера - 10000 частиц
         }
         else
         {
-            explosion1.maxCount = 1000;
+            explosion1.maxCount = 1000; //режим предпросмотра - 1000 частиц
         }
     }
 }

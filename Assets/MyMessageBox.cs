@@ -8,7 +8,6 @@ public class MyMessageBox : MonoBehaviour
 {
     private static MyMessageBox instance;
     public GameObject Template;
-    public GameObject canvas;
 
     // Start is called before the first frame update
     void Awake()
@@ -19,7 +18,7 @@ public class MyMessageBox : MonoBehaviour
     public static void ShowMessage(string message)
     {
         Debug.Log(message);
-        GameObject messageBox = Instantiate(instance.Template, instance.canvas.transform);
+        GameObject messageBox = Instantiate(instance.Template);
         // Set as child of the Screen object
         //messageBox.transform.parent = instance.canvas.transform;
 
